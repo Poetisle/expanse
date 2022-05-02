@@ -13,6 +13,7 @@ import { TheExpanseBeltDark } from "./dice-so-nice/expanse-belt-dark-die.js";
 import { TheExpanseBeltLight } from "./dice-so-nice/expanse-belt-light-die.js";
 import { TheExpanseProtogenDark } from "./dice-so-nice/expanse-protogen-dark-die.js";
 import { TheExpanseProtogenLight } from "./dice-so-nice/expanse-protogen-light-die.js";
+import { expanseStatus} from "./status.js";
 
 Hooks.once("init", async function () {
   console.log(`Initializing A Template`);
@@ -24,6 +25,9 @@ Hooks.once("init", async function () {
     formula: "3d6+@abilities.dexterity.rating",
     decimals: 2
   }
+
+  CONFIG.statusEffects = expanseStatus.statusEffects;
+
   CONFIG.Dice.terms["a"] = TheExpanseEarthDark;
   CONFIG.Dice.terms["l"] = TheExpanseEarthLight;
   CONFIG.Dice.terms["c"] = TheExpanseMarsDark;
@@ -50,6 +54,8 @@ Hooks.once("init", async function () {
   Items.registerSheet("expanse", ExpanseItemSheet, {
     makeDefault: true
   });
+
+
 
   Handlebars.registerHelper('concat', function () {
     let arg = Array.prototype.slice.call(arguments, 0);
