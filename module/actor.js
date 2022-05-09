@@ -8,6 +8,7 @@ export class ExpanseActor extends Actor {
 
   prepareData() {
     super.prepareData();
+    this.applyActiveEffects();
   }
 
   _preCreate() {
@@ -39,6 +40,10 @@ export class ExpanseActor extends Actor {
     }
 
     data.update(createData);
+  }
+
+  update() {
+    super.update();
   }
 
   prepareEmbeddedEntities() {
@@ -98,6 +103,13 @@ export class ExpanseActor extends Actor {
         data.attributes.level.bonus = true;
       }
 
+      for (const condition in data.conditions) {
+        if (data.conditions.hasOwnProperty(condition)) {
+          console.log(condition + " -> " + data.conditions[condition])
+        }
+
+      }
+
       if (data.conditions.injured.active === true) {
         data.conditions.fatigued.active = !data.conditions.fatigued.active;
       }
@@ -121,4 +133,10 @@ export class ExpanseActor extends Actor {
     super.prepareDerivedData();
 
   }
+
+  HandleConditions() {
+
+
+  }
+
 }

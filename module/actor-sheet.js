@@ -1,5 +1,6 @@
 import { diceRollType } from "./rolling/dice-rolling.js";
 import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js"
+import { expanseStatus} from "./status.js";
 
 export class ExpanseActorSheet extends ActorSheet {
 
@@ -166,12 +167,44 @@ export class ExpanseActorSheet extends ActorSheet {
             const actorData = data.actor;
             let conditionName = e.currentTarget.getAttribute("name");
             const conditionData = actorData.data.data.conditions;
+            let conditionEffect = {};
+            let currentEffect = {}
+
+
 
             for (let [k, v] of Object.entries(conditionData)) {
                 if (k === conditionName) {
-                    actorData.data.data.conditions[conditionName].active = !v.active;
+                    // Safeguard so we don't put on duplicate conditions. Shouldn't happen.
+                    //removeXtraConditions(actorData, conditionName)
+                    conditionEffect = expanseStatus.statusEffects.find(i => i.id === conditionName);
+                    currentEffect = actorData.data.effects.find(i => i.data.label == conditionEffect.label)
+
+
+
+                    if (!v.active) {
+                        actorData.createEmbeddedDocuments("ActiveEffect", [{
+                                label: conditionEffect.label,
+                                name: conditionEffect.name,
+                                icon: conditionEffect.icon,
+                                id: conditionEffect.id,
+                                changes: conditionEffect.changes,
+                                duration: {startTime: 0},
+                                flags: {core: {statusId: conditionEffect.id}}
+                            }]
+                        )
+                    }
+                    else {
+                        if (currentEffect) {
+                            currentEffect.delete();
+                        }
+                        else {
+                            console.log (`Attempted to delete activeEffect ${conditionEffect.label} but ActiveEffect is not applied`)
+                        }
+                    }
                 }
             }
+
+            this.actor.applyActiveEffects();
             await this.actor.update({ data: { conditions: data.actor.data.data.conditions } });
         })
 
@@ -799,6 +832,8 @@ export class ExpanseActorSheet extends ActorSheet {
         })
         return ic;
     }
+
+
 
     RollDamageModifier() {
         let dMod = new Promise((resolve) => {
