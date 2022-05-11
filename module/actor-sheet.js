@@ -344,7 +344,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 useFocusPlus = 1
             }
             let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
-            let woundPenalty = actorData.data.data.attributes.woundpenalty
+            let woundPenalty = parseInt(actorData.data.data.attributes.woundpenalty);
 
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
@@ -693,7 +693,7 @@ export class ExpanseActorSheet extends ActorSheet {
             let abilityMod = roll.data.abilities[dataset.label].rating;
             [die1, die2] = roll.terms[0].results.map(i => i.result);
             [die3] = roll.terms[2].results.map(i => i.result);
-            let woundPenalty = roll.data.attributes.woundpenalty
+            let woundPenalty = parseInt(roll.data.attributes.woundpenalty);
 
 
             if (roll.data.conditions.wounded.active === "true") {
