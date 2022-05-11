@@ -174,9 +174,9 @@ expanseStatus.statusEffects = [
                 value: 'true'
             },
             {
-                key: 'data.attributes.injured',
+                key: 'data.attributes.woundpenalty',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '1'
+                value: '-1'
             }
         ]
     },
@@ -269,7 +269,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.attributes.woundpenalty',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '2'
+                value: '-2'
             }
         ]
     }

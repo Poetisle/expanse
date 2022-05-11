@@ -79,12 +79,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         break;
                 }
 
-                if (bonusDamage !== 0) {
-                    v.data.data.hasBonusDamage = true;
-                } else {
-                    v.data.data.hasBonusDamage = false;
-                }
-
+                v.data.data.hasBonusDamage = bonusDamage !== 0;
                 v.data.data.bonusDamage = bonusDamage;
 
                 switch (toHitMod) {
@@ -328,7 +323,6 @@ export class ExpanseActorSheet extends ActorSheet {
             const diceData = diceRollType();
             let die1, die2, die3;
             let d2; let d1;
-            let condMod;
             let condModName;
             let rollCard;
             let condModWarning;
@@ -350,23 +344,23 @@ export class ExpanseActorSheet extends ActorSheet {
                 useFocusPlus = 1
             }
             let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
+            let woundPenalty = actorData.data.data.attributes.woundpenalty
+
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
 
-            if (actorData.data.data.conditions.wounded.active === true) {
-                condMod = -2;
+
+            if (actorData.data.data.conditions.wounded.active === "true") {
                 condModName = "wounded";
-            } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === false)) {
-                condMod = -1;
+            } else if ((actorData.data.data.conditions.injured.active === "true") && (actorData.data.data.conditions.wounded.active === "false")) {
                 condModName = "injured";
-            } else {
-                condMod = 0;
             }
+
 
             let label = useFocus ? `<b> Rolling ${weaponToHitAbil} to hit with focus </b>` : `Rolling to hit with ${weaponToHitAbil}`;
 
-            if (condMod < 0) {
-                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
+            if (woundPenalty < 0) {
+                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${woundPenalty} modifier to your roll</i> <br>`;
             } else {
                 condModWarning = ``;
             }
@@ -385,7 +379,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let chatMod = `<b>Ability Rating</b>: ${abilityMod}</br>`;
 
-            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
+            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + woundPenalty;
 
             let chatStunts = "";
             if (die1 == die2 || die1 == die3 || die2 == die3) {
@@ -677,7 +671,6 @@ export class ExpanseActorSheet extends ActorSheet {
             const diceData = diceRollType();
             let die1 = 0; let die2 = 0; let die3 = 0;
             let d2; let d1;
-            let condMod;
             let condModName;
             let rollCard;
             let condModWarning;
@@ -700,21 +693,19 @@ export class ExpanseActorSheet extends ActorSheet {
             let abilityMod = roll.data.abilities[dataset.label].rating;
             [die1, die2] = roll.terms[0].results.map(i => i.result);
             [die3] = roll.terms[2].results.map(i => i.result);
+            let woundPenalty = roll.data.attributes.woundpenalty
 
-            if (roll.data.conditions.wounded.active === true) {
-                condMod = -2;
+
+            if (roll.data.conditions.wounded.active === "true") {
                 condModName = "wounded";
-            } else if ((roll.data.conditions.injured.active === true) && (roll.data.conditions.wounded.active === false)) {
-                condMod = -1;
+            } else if ((roll.data.conditions.injured.active === "true") && (roll.data.conditions.wounded.active === false)) {
                 condModName = "injured";
-            } else {
-                condMod = 0;
             }
 
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
 
-            if (condMod < 0) {
-                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
+            if (woundPenalty < 0) {
+                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${woundPenalty} modifier to your roll</i> <br>`;
             } else {
                 condModWarning = ``;
             }
@@ -733,7 +724,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let chatMod = `<b>Ability Rating</b>: ${abilityMod}</br>`;
 
-            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
+            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + woundPenalty;
 
             // Stunt Points Generation
             let chatStunts = "";
