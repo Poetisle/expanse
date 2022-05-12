@@ -10,7 +10,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.blinded.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             }
         ]
     },
@@ -29,7 +29,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.deafened.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             }
         ]
     },
@@ -49,7 +49,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.dying.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             }
         ]
     },
@@ -61,22 +61,22 @@ expanseStatus.statusEffects = [
         changes: [     {
             key: 'data.conditions.exhausted.active',
             mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-            value: 'true'
+            value: true
         },
             {
                 key: 'data.attributes.speed.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
-                value: '0.5'
+                value: 0.5
             },
             {
                 key: 'data.attributes.move.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
-                value: '0.5'
+                value: 0.5
             },
             {
                 key: 'data.attributes.run.modified ',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             }
         ]
     },
@@ -89,7 +89,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.fatigued.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             }
         ]
     },
@@ -102,7 +102,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.freefall.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             }
         ]
     },
@@ -121,17 +121,17 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.helpless.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             },
             {
                 key: 'data.attributes.move.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             },
             {
                 key: 'data.attributes.run.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             }
     ]
     },
@@ -143,22 +143,22 @@ expanseStatus.statusEffects = [
     changes: [     {
                 key: 'data.conditions.hindered.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             },
             {
                 key: 'data.attributes.speed.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
-                value: '0.5'
+                value: 0.5
             },
             {
                 key: 'data.attributes.move.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
-                value: '0.5'
+                value: 0.5
             },
             {
                 key: 'data.attributes.run.modified ',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             }
         ]
     },
@@ -171,12 +171,12 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.injured.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             },
             {
                 key: 'data.attributes.woundpenalty',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '-1'
+                value: -1
             }
         ]
     },
@@ -195,7 +195,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.prone.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             }
         ]
     },
@@ -208,22 +208,22 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.restrained.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             },
             {
                 key: 'data.attributes.speed.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             },
             {
                 key: 'data.attributes.move.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             },
             {
                 key: 'data.attributes.run.modified ',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             }
         ]
     },
@@ -236,22 +236,22 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.unconscious.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             },
             {
                 key: 'data.attributes.speed.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             },
             {
                 key: 'data.attributes.move.modified',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '0'
+                value: 0
             },
             {
                 key: 'data.attributes.run.modified ',
                 mode: CONST.ACTIVE_EFFECT_MODES.MODIFY,
-                value: '0'
+                value: 0
             }
         ]
     },
@@ -264,13 +264,28 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.wounded.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 'true'
+                value: true
             },
             {
                 key: 'data.attributes.woundpenalty',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: '-2'
-            }
+                value: -2
+            },
+            {
+                key: 'data.attributes.run.modified ',
+                mode: CONST.ACTIVE_EFFECT_MODES.MODIFY,
+                value: 0
+            },
+            {
+                key: 'data.attributes.speed.modified',
+                mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
+                value: 0.5
+            },
+            {
+                key: 'data.attributes.move.modified',
+                mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
+                value: 0.5
+            },
         ]
     }
 ]
