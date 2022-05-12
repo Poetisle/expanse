@@ -1,5 +1,6 @@
 import { diceRollType } from "./rolling/dice-rolling.js";
 import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js"
+import { expanseStatus} from "./status.js";
 
 export class ExpanseActorSheet extends ActorSheet {
 
@@ -78,12 +79,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         break;
                 }
 
-                if (bonusDamage !== 0) {
-                    v.data.data.hasBonusDamage = true;
-                } else {
-                    v.data.data.hasBonusDamage = false;
-                }
-
+                v.data.data.hasBonusDamage = bonusDamage !== 0;
                 v.data.data.bonusDamage = bonusDamage;
 
                 switch (toHitMod) {
@@ -166,12 +162,44 @@ export class ExpanseActorSheet extends ActorSheet {
             const actorData = data.actor;
             let conditionName = e.currentTarget.getAttribute("name");
             const conditionData = actorData.data.data.conditions;
+            let conditionEffect = {};
+            let currentEffect = {}
+
+
 
             for (let [k, v] of Object.entries(conditionData)) {
                 if (k === conditionName) {
-                    actorData.data.data.conditions[conditionName].active = !v.active;
+                    // Safeguard so we don't put on duplicate conditions. Shouldn't happen.
+                    //removeXtraConditions(actorData, conditionName)
+                    conditionEffect = expanseStatus.statusEffects.find(i => i.id === conditionName);
+                    currentEffect = actorData.data.effects.find(i => i.data.label == conditionEffect.label)
+
+
+
+                    if (!v.active) {
+                        actorData.createEmbeddedDocuments("ActiveEffect", [{
+                                label: conditionEffect.label,
+                                name: conditionEffect.name,
+                                icon: conditionEffect.icon,
+                                id: conditionEffect.id,
+                                changes: conditionEffect.changes,
+                                duration: {startTime: 0},
+                                flags: {core: {statusId: conditionEffect.id}}
+                            }]
+                        )
+                    }
+                    else {
+                        if (currentEffect) {
+                            currentEffect.delete();
+                        }
+                        else {
+                            console.log (`Attempted to delete activeEffect ${conditionEffect.label} but ActiveEffect is not applied`)
+                        }
+                    }
                 }
             }
+
+            this.actor.applyActiveEffects();
             await this.actor.update({ data: { conditions: data.actor.data.data.conditions } });
         })
 
@@ -195,7 +223,6 @@ export class ExpanseActorSheet extends ActorSheet {
                     return;
                 }*/
                 // If targeting same armor, cycle on off;
-
                 if (v.type === "armor" && v._id === itemId) {
                     curArmor.data.equip =  !curArmor.data.equip
                 } else if (v.type === "armor") {
@@ -304,7 +331,6 @@ export class ExpanseActorSheet extends ActorSheet {
             const diceData = diceRollType();
             let die1, die2, die3;
             let d2; let d1;
-            let condMod;
             let condModName;
             let rollCard;
             let condModWarning;
@@ -326,23 +352,23 @@ export class ExpanseActorSheet extends ActorSheet {
                 useFocusPlus = 1
             }
             let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
+            let woundPenalty = parseInt(actorData.data.data.attributes.woundpenalty);
+
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
 
-            if (actorData.data.data.conditions.wounded.active === true) {
-                condMod = -2;
+
+            if (actorData.data.data.conditions.wounded.active === "true") {
                 condModName = "wounded";
-            } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === false)) {
-                condMod = -1;
+            } else if ((actorData.data.data.conditions.injured.active === "true") && (actorData.data.data.conditions.wounded.active === "false")) {
                 condModName = "injured";
-            } else {
-                condMod = 0;
             }
+
 
             let label = useFocus ? `<b> Rolling ${weaponToHitAbil} to hit with focus </b>` : `Rolling to hit with ${weaponToHitAbil}`;
 
-            if (condMod < 0) {
-                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
+            if (woundPenalty < 0) {
+                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${woundPenalty} modifier to your roll</i> <br>`;
             } else {
                 condModWarning = ``;
             }
@@ -653,7 +679,6 @@ export class ExpanseActorSheet extends ActorSheet {
             const diceData = diceRollType();
             let die1 = 0; let die2 = 0; let die3 = 0;
             let d2; let d1;
-            let condMod;
             let condModName;
             let rollCard;
             let condModWarning;
@@ -682,24 +707,21 @@ export class ExpanseActorSheet extends ActorSheet {
             let abilityMod = roll.data.abilities[dataset.label].rating;
             [die1, die2] = roll.terms[0].results.map(i => i.result);
             [die3] = roll.terms[2].results.map(i => i.result);
+            let woundPenalty = parseInt(roll.data.attributes.woundpenalty);
 
 
             //TODO: Should probably roll these roll modifiers into it's own function and then localize it
 
-            if (roll.data.conditions.wounded.active === true) {
-                condMod = -2;
+            if (roll.data.conditions.wounded.active === "true") {
                 condModName = "wounded";
-            } else if ((roll.data.conditions.injured.active === true) && (roll.data.conditions.wounded.active === false)) {
-                condMod = -1;
+            } else if ((roll.data.conditions.injured.active === "true") && (roll.data.conditions.wounded.active === false)) {
                 condModName = "injured";
-            } else {
-                condMod = 0;
             }
 
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
 
-            if (condMod < 0) {
-                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
+            if (woundPenalty < 0) {
+                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${woundPenalty} modifier to your roll</i> <br>`;
             } else {
                 condModWarning = ``;
             }
@@ -725,7 +747,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let chatMod = `<b>Ability Rating</b>: ${abilityMod}</br>`;
 
-            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod + armorPenalty;
+            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + woundPenalty + armorPenalty;
 
             // Stunt Points Generation
             let chatStunts = "";
