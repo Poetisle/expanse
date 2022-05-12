@@ -350,9 +350,9 @@ export class ExpanseActorSheet extends ActorSheet {
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
 
 
-            if (actorData.data.data.conditions.wounded.active === "true") {
+            if (actorData.data.data.conditions.wounded.active === true) {
                 condModName = "wounded";
-            } else if ((actorData.data.data.conditions.injured.active === "true") && (actorData.data.data.conditions.wounded.active === "false")) {
+            } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === "false")) {
                 condModName = "injured";
             }
 
