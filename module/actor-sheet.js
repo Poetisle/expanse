@@ -2,6 +2,7 @@ import { diceRollType } from "./rolling/dice-rolling.js";
 import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js"
 import { expanseStatus} from "./status.js";
 
+
 export class ExpanseActorSheet extends ActorSheet {
 
     static get defaultOptions() {
@@ -174,8 +175,6 @@ export class ExpanseActorSheet extends ActorSheet {
                     conditionEffect = expanseStatus.statusEffects.find(i => i.id === conditionName);
                     currentEffect = actorData.data.effects.find(i => i.data.label == conditionEffect.label)
 
-
-
                     if (!v.active) {
                         actorData.createEmbeddedDocuments("ActiveEffect", [{
                                 label: conditionEffect.label,
@@ -187,6 +186,8 @@ export class ExpanseActorSheet extends ActorSheet {
                                 flags: {core: {statusId: conditionEffect.id}}
                             }]
                         )
+
+                        this._ApplyChainedConditions(conditionEffect, data.actor)
                     }
                     else {
                         if (currentEffect) {
@@ -873,4 +874,31 @@ export class ExpanseActorSheet extends ActorSheet {
         return rMod;
     }
 
+    _ApplyChainedConditions(condition, actor) {
+        let conditionEffect;
+        let currentEffect;
+
+        for (const linkedCondition in expanseStatus.linkedConditions) {
+            if (linkedCondition === condition.id) {
+                expanseStatus.linkedConditions[linkedCondition].forEach(linkedCondition => {
+                        conditionEffect = expanseStatus.statusEffects.find(i => i.id === linkedCondition);
+                        currentEffect = actor.data.effects.find(i => i.data.label == conditionEffect.label)
+                        if (!currentEffect) {
+                            actor.createEmbeddedDocuments("ActiveEffect", [{
+                                    label: conditionEffect.label,
+                                    name: conditionEffect.name,
+                                    icon: conditionEffect.icon,
+                                    id: conditionEffect.id,
+                                    changes: conditionEffect.changes,
+                                    duration: {startTime: 0},
+                                    flags: {core: {statusId: conditionEffect.id}}
+                                }]
+                            )
+                        }
+
+                    }
+                )
+            }
+        }
+    }
 }
