@@ -209,6 +209,7 @@ export class ExpanseActorSheet extends ActorSheet {
             const data = super.getData()
             const items = data.items;
             let itemId = e.currentTarget.getAttribute("data-item-id");
+            let itemType = data.items.find(i => i._id == itemId).type;
 
             for (let [k, v] of Object.entries(items)) {
                 let curArmor = duplicate(this.actor.getEmbeddedDocument("Item", v._id));
@@ -224,17 +225,12 @@ export class ExpanseActorSheet extends ActorSheet {
                     return;
                 }*/
                 // If targeting same armor, cycle on off;
-                if (v.type === "armor" && v._id === itemId) {
-                    curArmor.data.equip =  !curArmor.data.equip
-                } else if (v.type === "armor") {
-                    curArmor.data.equip =  false
-                }
-
-
-                if (v.type === "shield" && v._id === itemId) {
-                    curArmor.data.equip = !curArmor.data.equip;
-                } else if (v.type === "shield") {
-                    curArmor.data.equip =  false
+                if (v.type === itemType ) {
+                    if (v._id === itemId) {
+                        curArmor.data.equip = !curArmor.data.equip;
+                    } else {
+                        curArmor.data.equip = false
+                    }
                 }
 
                 this.actor.updateEmbeddedDocuments("Item", [curArmor]);
