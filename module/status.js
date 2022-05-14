@@ -237,21 +237,6 @@ expanseStatus.statusEffects = [
                 key: 'data.conditions.unconscious.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
                 value: true
-            },
-            {
-                key: 'data.attributes.speed.modified',
-                mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 0
-            },
-            {
-                key: 'data.attributes.move.modified',
-                mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: 0
-            },
-            {
-                key: 'data.attributes.run.modified ',
-                mode: CONST.ACTIVE_EFFECT_MODES.MODIFY,
-                value: 0
             }
         ]
     },
@@ -270,25 +255,18 @@ expanseStatus.statusEffects = [
                 key: 'data.attributes.woundpenalty',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
                 value: -2
-            },
-            {
-                key: 'data.attributes.run.modified ',
-                mode: CONST.ACTIVE_EFFECT_MODES.MODIFY,
-                value: 0
-            },
-            {
-                key: 'data.attributes.speed.modified',
-                mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
-                value: 0.5
-            },
-            {
-                key: 'data.attributes.move.modified',
-                mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
-                value: 0.5
-            },
+            }
         ]
     }
 ]
+
+expanseStatus.linkedConditions =
+    { injured: ['fatigued'],
+        unconscious: ['prone','helpless'],
+        wounded: ['exhausted']
+    }
+
+
 
 
 
