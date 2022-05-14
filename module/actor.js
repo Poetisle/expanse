@@ -42,10 +42,6 @@ export class ExpanseActor extends Actor {
     data.update(createData);
   }
 
-  update() {
-    super.update();
-  }
-
   prepareEmbeddedEntities() {
     /*const actorData = this.data;
     console.log(actorData)
@@ -119,11 +115,6 @@ export class ExpanseActor extends Actor {
 
     }
     super.prepareDerivedData();
-
-  }
-
-  HandleConditions() {
-
 
   }
 
