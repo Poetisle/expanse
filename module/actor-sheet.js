@@ -208,6 +208,8 @@ export class ExpanseActorSheet extends ActorSheet {
         html.find(".item-equip").click(async e => {
             const data = super.getData()
             const items = data.items;
+
+
             let itemId = e.currentTarget.getAttribute("data-item-id");
             let itemType = data.items.find(i => i._id == itemId).type;
 
@@ -234,6 +236,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 }
 
                 this.actor.updateEmbeddedDocuments("Item", [curArmor]);
+
             }
         });
 
