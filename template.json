@@ -78,6 +78,9 @@
                     "value": 0,
                     "modified": 0,
                     "thisround": false
+                },
+                "woundpenalty": {
+                    "value": 0
                 }
             },
             "abilities": {
