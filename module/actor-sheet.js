@@ -48,7 +48,7 @@ export class ExpanseActorSheet extends ActorSheet {
         sheetData.attributes = data.data.data.attributes;
         sheetData.abilities = data.data.data.abilities;
         sheetData.bio = data.data.data.bio;
-        //temp fix. new actors shouldnt need this
+        //temp fix. new actors shouldn't need this
         sheetData.info = data.data.data.info;
         sheetData.img = data.actor.data.img;
         sheetData.items.sort((a, b) => {
@@ -192,6 +192,13 @@ export class ExpanseActorSheet extends ActorSheet {
                     else {
                         if (currentEffect) {
                             currentEffect.delete();
+
+                            // this shouldn't be needed and yet it is. Should be removed when the activeeffect is deleted
+                            if (conditionEffect.id === 'wounded' || conditionEffect.id === 'injured') {
+                                actorData.data.data.attributes.woundpenalty.value = 0;
+                                await this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
+                            }
+
                         }
                         else {
                             console.log (`Attempted to delete activeEffect ${conditionEffect.label} but ActiveEffect is not applied`)
@@ -201,7 +208,6 @@ export class ExpanseActorSheet extends ActorSheet {
             }
 
             this.actor.applyActiveEffects();
-            await this.actor.update({ data: { conditions: data.actor.data.data.conditions } });
         })
 
         // Limit armor able to be equipped to 1
@@ -345,15 +351,15 @@ export class ExpanseActorSheet extends ActorSheet {
                 useFocusPlus = 1
             }
             let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
-            let woundPenalty = parseInt(actorData.data.data.attributes.woundpenalty);
+            let woundPenalty = parseInt(actorData.data.data.attributes.woundpenalty.value);
 
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
 
 
-            if (actorData.data.data.conditions.wounded.active === true) {
+            if (actorData.data.data.conditions.wounded.active == true) {
                 condModName = "wounded";
-            } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === "false")) {
+            } else if ((actorData.data.data.conditions.injured.active == true) && (actorData.data.data.conditions.wounded.active === false)) {
                 condModName = "injured";
             }
 
@@ -383,7 +389,7 @@ export class ExpanseActorSheet extends ActorSheet {
             resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + woundPenalty;
 
             let chatStunts = "";
-            if (die1 == die2 || die1 == die3 || die2 == die3) {
+            if (die1 === die2 || die1 === die3 || die2 === die3) {
                 chatStunts = `<b>${die3} Stunt Points have been generated!</b>`;
                 let spData = actorData.data.data.attributes.stuntpoints;
                 spData.modified = die3;
@@ -694,12 +700,12 @@ export class ExpanseActorSheet extends ActorSheet {
             let abilityMod = roll.data.abilities[dataset.label].rating;
             [die1, die2] = roll.terms[0].results.map(i => i.result);
             [die3] = roll.terms[2].results.map(i => i.result);
-            let woundPenalty = parseInt(roll.data.attributes.woundpenalty);
+            let woundPenalty = parseInt(roll.data.attributes.woundpenalty.value);
 
 
-            if (roll.data.conditions.wounded.active === "true") {
+            if (roll.data.conditions.wounded.active == true) {
                 condModName = "wounded";
-            } else if ((roll.data.conditions.injured.active === "true") && (roll.data.conditions.wounded.active === false)) {
+            } else if ((roll.data.conditions.injured.active == true) && (roll.data.conditions.wounded.active === false)) {
                 condModName = "injured";
             }
 
@@ -729,7 +735,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             // Stunt Points Generation
             let chatStunts = "";
-            if (die1 == die2 || die1 == die3 || die2 == die3) {
+            if (die1 === die2 || die1 === die3 || die2 === die3) {
                 chatStunts = `<b>${die3} Stunt Points have been generated!</b>`;
                 let spData = actorData.data.data.attributes.stuntpoints;
                 spData.modified = die3;
@@ -882,7 +888,7 @@ export class ExpanseActorSheet extends ActorSheet {
             if (linkedCondition === condition.id) {
                 expanseStatus.linkedConditions[linkedCondition].forEach(linkedCondition => {
                         conditionEffect = expanseStatus.statusEffects.find(i => i.id === linkedCondition);
-                        currentEffect = actor.data.effects.find(i => i.data.label == conditionEffect.label)
+                        currentEffect = actor.data.effects.find(i => i.data.label === conditionEffect.label)
                         if (!currentEffect) {
                             actor.createEmbeddedDocuments("ActiveEffect", [{
                                     label: conditionEffect.label,

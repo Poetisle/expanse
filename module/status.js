@@ -10,7 +10,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.blinded.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             }
         ]
     },
@@ -29,7 +29,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.deafened.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             }
         ]
     },
@@ -49,7 +49,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.dying.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             }
         ]
     },
@@ -61,7 +61,7 @@ expanseStatus.statusEffects = [
         changes: [     {
             key: 'data.conditions.exhausted.active',
             mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-            value: true
+            value: 1
         },
             {
                 key: 'data.attributes.speed.modified',
@@ -89,7 +89,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.fatigued.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             }
         ]
     },
@@ -102,7 +102,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.freefall.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             }
         ]
     },
@@ -121,7 +121,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.helpless.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             },
             {
                 key: 'data.attributes.move.modified',
@@ -143,7 +143,7 @@ expanseStatus.statusEffects = [
     changes: [     {
                 key: 'data.conditions.hindered.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             },
             {
                 key: 'data.attributes.speed.modified',
@@ -171,11 +171,11 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.injured.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             },
             {
-                key: 'data.attributes.woundpenalty',
-                mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                key: 'data.attributes.woundpenalty.value',
+                mode: CONST.ACTIVE_EFFECT_MODES.DOWNGRADE,
                 value: -1
             }
         ]
@@ -195,7 +195,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.prone.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             }
         ]
     },
@@ -208,7 +208,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.restrained.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             },
             {
                 key: 'data.attributes.speed.modified',
@@ -236,7 +236,7 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.unconscious.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             }
         ]
     },
@@ -249,11 +249,11 @@ expanseStatus.statusEffects = [
             {
                 key: 'data.conditions.wounded.active',
                 mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: true
+                value: 1
             },
             {
-                key: 'data.attributes.woundpenalty',
-                mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                key: 'data.attributes.woundpenalty.value',
+                mode: CONST.ACTIVE_EFFECT_MODES.DOWNGRADE,
                 value: -2
             }
         ]

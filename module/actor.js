@@ -105,14 +105,6 @@ export class ExpanseActor extends Actor {
         }
 
       }
-
-      if (data.conditions.injured.active === true) {
-        data.conditions.fatigued.active = !data.conditions.fatigued.active;
-      }
-      if (data.conditions.unconscious.active === true) {
-        data.conditions.prone.active = true;
-      }
-
     }
     super.prepareDerivedData();
 
