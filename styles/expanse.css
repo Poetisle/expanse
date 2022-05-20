@@ -153,7 +153,7 @@
 
 
 body {
-    background-image: url("../ui/expanse_background.jpg");
+    background-image: url("../ui/expanse_background.webp");
     background-repeat: no-repeat;
     /*background-color: #005971;*/
     background-size: auto;
@@ -167,7 +167,7 @@ img {
     width: 25px;
     height: 25px;
     border-radius: 5px;
-    background-image: url("../ui/earth-5.png");
+    background-image: url("../ui/earth-5.webp");
     background-size: cover;
     background-repeat: none;
     background-position: center;
@@ -1027,7 +1027,7 @@ input[type=checkbox] {
     width: 40px;
     height: 25px;
     border-radius: 5px;
-    background-image: url("../ui/earth-5.png");
+    background-image: url("../ui/earth-5.webp");
     background-size: cover;
     background-repeat: none;
     background-position: center;
