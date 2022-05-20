@@ -9,13 +9,13 @@ export class ExpanseItem extends Item {
         const data = this.data;
         const path = "systems/expanse/ui/item-img/"
         if (data.type === "armor") {
-            data.update({ img: `${path}item-armor.png` })
+            data.update({ img: `${path}item-armor.webp` })
         } else if (data.type === "shield") {
-            data.update({ img: `${path}item-shield.png` })
+            data.update({ img: `${path}item-shield.webp` })
         } else if (data.type === "talent") {
-            data.update({ img: `${path}talent-tablet.png` })
+            data.update({ img: `${path}talent-tablet.webp` })
         } else if (data.type === "stunt") {
-            data.update({ img: `${path}stunt.png` })
+            data.update({ img: `${path}stunt.webp` })
         }
     }
 
@@ -24,32 +24,32 @@ export class ExpanseItem extends Item {
         const path = "systems/expanse/ui/item-img/"
         if (data.type === "weapon") {
             if (data.data.type === "pistol") {
-                this.update({ img: `${path}item-pistol.png` })
+                this.update({ img: `${path}item-pistol.webp` })
             } else if (data.data.type === "rifle") {
-                this.update({ img: `${path}item-rifle1.png` })
+                this.update({ img: `${path}item-rifle1.webp` })
             } else if (data.data.type === "light_melee") {
-                this.update({ img: `${path}item-light_melee.png` })
+                this.update({ img: `${path}item-light_melee.webp` })
             } else if (data.data.type === "heavy_melee") {
-                this.update({ img: `${path}item-heavy_melee.png` })
+                this.update({ img: `${path}item-heavy_melee.webp` })
             } else if (data.data.type === "makeshift") {
-                this.update({ img: `${path}item-makeshift1.png` })
+                this.update({ img: `${path}item-makeshift1.webp` })
             } else if (data.data.type === "grenade") {
-                this.update({ img: `${path}item-grenade.png` })
+                this.update({ img: `${path}item-grenade.webp` })
             } else if (data.data.type === "unarmed") {
-                this.update({ img: `${path}item-unarmed.png` })
+                this.update({ img: `${path}item-unarmed.webp` })
             }
         }
 
         if (data.type === "talent" && data.data.specialization === true) {
-            this.update({ img: `${path}talent-book.png` })
+            this.update({ img: `${path}talent-book.webp` })
         }
         
         if (data.type === "talent" && data.data.specialization === false) {
-            this.update({ img: `${path}talent-tablet.png` })
+            this.update({ img: `${path}talent-tablet.webp` })
         }
 
         if (data.type === "stunt") {
-            this.update({ img: `${path}stunt.png` })
+            this.update({ img: `${path}stunt.webp` })
         }
     }
 }

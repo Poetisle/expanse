@@ -15,7 +15,7 @@ export class ExpanseActor extends Actor {
     const data = this.data;
     const path = "systems/expanse/ui/item-img/"
     if (data.type === "ship" && data.img === "icons/svg/mystery-man.svg") {
-      data.update({ img: `${path}actor-ship.png` })
+      data.update({ img: `${path}actor-ship.webp` })
     }
 
     let createData = {};
