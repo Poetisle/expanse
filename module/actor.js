@@ -6,11 +6,6 @@
 export class ExpanseActor extends Actor {
   /** @override */
 
-  prepareData() {
-    super.prepareData();
-    this.applyActiveEffects();
-  }
-
   _preCreate() {
     const data = this.data;
     const path = "systems/expanse/ui/item-img/"
@@ -42,6 +37,7 @@ export class ExpanseActor extends Actor {
     data.update(createData);
   }
 
+  /*
   prepareEmbeddedEntities() {
     /*const actorData = this.data;
     console.log(actorData)
@@ -62,10 +58,11 @@ export class ExpanseActor extends Actor {
           actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
         }
       }
-    }*/
+    }
     // if armour is equipped, set modified value to bonus. else set to original value
 
   }
+  */
 
 
   prepareDerivedData() {

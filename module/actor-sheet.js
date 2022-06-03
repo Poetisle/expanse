@@ -206,7 +206,7 @@ export class ExpanseActorSheet extends ActorSheet {
                     }
                 }
             }
-            this.actor.applyActiveEffects();
+           await this.actor.applyActiveEffects();
         })
 
         // Limit armor able to be equipped to 1
@@ -905,7 +905,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         conditionEffect = expanseStatus.statusEffects.find(i => i.id === linkedCondition);
                         currentEffect = actor.data.effects.find(i => i.data.label === conditionEffect.label)
                         if (!currentEffect) {
-                            actor.createEmbeddedDocuments("ActiveEffect", [{
+                             actor.createEmbeddedDocuments("ActiveEffect", [{
                                     label: conditionEffect.label,
                                     name: conditionEffect.name,
                                     icon: conditionEffect.icon,
